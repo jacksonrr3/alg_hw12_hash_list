@@ -1,15 +1,17 @@
 #pragma once
-#include "VectorArray.h"
 #include "List.h"
 
 template <typename V>
-struct Pair 
+struct Pair
 {
 	int _key;
 	V _value;
 
 	Pair() = default;
+	Pair(const Pair& p) = default;
 	Pair& operator=(const Pair& p) = default;
+	Pair(Pair&& p) = default;
+	Pair& operator=(Pair&& p) = default;
 
 	Pair(int key) :_key(key), _value() {}
 	Pair(int key, V value) :_key(key), _value(value) {}
@@ -27,7 +29,7 @@ bool operator==(const Pair<V>& p1, const Pair<V>& p2) {
 template <typename T>
 struct Hash_Chain {
 
-	List<Pair<T> >*  _hash_table; //динамический массив
+	List<Pair<T> >* _hash_table; //Г¤ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁГ© Г¬Г Г±Г±ГЁГў
 	std::size_t _table_size;
 
 	std::size_t hash(int i) {
@@ -41,8 +43,19 @@ public:
 
 	~Hash_Chain() = default;
 
-	void ins(int key, const T& value) {
-		_hash_table[hash(key)].enqueue({ key, value });
+	bool ins(int key, const T& value) {
+		bool b = true;
+		for (Node<Pair<T>>* n = _hash_table[hash(key)].getHead(); n; n = n->getNext()) {
+			if (n->getItem()._key == key) {
+				n->setItem({key, value});
+				b = false;
+				break;
+			}
+		}
+		if (b) {
+			_hash_table[hash(key)].enqueue({ key, value });
+		}
+		return b;
 	}
 
 	bool del(int key) {
@@ -50,6 +63,7 @@ public:
 
 		for (Node<Pair<T>>* n = _hash_table[hash(key)].getHead(); n; n = n->getNext()) {
 			if (n->getItem()._key == key) {
+				b = true;
 				_hash_table[hash(key)].remove_node(n);
 				break;
 			}
