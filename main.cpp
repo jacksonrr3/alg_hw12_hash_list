@@ -2,9 +2,16 @@
 #include <string>
 #include "Hash_chain.h"
 
+
+std::size_t hash(int i) {
+	return i;
+}
+
+
+
 int main(int argv, char** args) {
-	Hash_Chain<std::string> table(100);		//таблица размерностью 100.
-	std::cout << table.ins(2, "test2") << std::endl;//тест вывода результата успешного добавления элемента
+	Hash_Chain<int, std::string> table(100, hash);		//таблица размерностью 100.
+	std::cout << table.ins(2, "test2") << std::endl;
 	table.ins(4, "test4");
 	table.ins(7, "test7");
 	table.ins(12, "test12");
@@ -25,6 +32,8 @@ int main(int argv, char** args) {
 	std::cout << table.search(42) << std::endl;	// тест - поиск в цепочке после удаления элемента из цепочки
 	std::cout << table.search(13) << std::endl;     // тест - поиск отсутствующего элемента
 	std::cout << table.del(13) << std::endl;	// тест - удаление отсутствующего элемента
+
+
 
 	return 0;
 }
