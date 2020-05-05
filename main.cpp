@@ -3,7 +3,7 @@
 #include "Hash_chain.h"
 
 int main(int argv, char ** args) {
-	Hash_Chain<std::string> table(100);
+	Hash_Chain<std::string> table(100);		//таблица размерностью 100.
 	table.ins(2, "test2");
 	table.ins(4, "test4");
 	table.ins(7, "test7");
@@ -12,17 +12,18 @@ int main(int argv, char ** args) {
 	table.ins(32, "test32");
 	table.ins(42, "test42");
 
-	std::cout << table.search(2) << std::endl;
-	table.del(2);
-	std::cout << table.search(2) << std::endl;
-	std::cout << table.search(4) << std::endl;
-	std::cout << table.search(7) << std::endl;
-	std::cout << table.search(12) << std::endl;
-	std::cout << table.search(22) << std::endl;
-	std::cout << table.search(32) << std::endl;
-	table.del(32);
-	std::cout << table.search(42) << std::endl;
-	std::cout << table.search(13) << std::endl;
+	std::cout << table.search(2) << std::endl;	// добавление нового элемента
+	table.del(2);					// тест - удаление элемента
+	std::cout << table.search(2) << std::endl;	// поиск удаленного элемента
+	std::cout << table.search(4) << std::endl;	// добавление нового элемента
+	std::cout << table.search(7) << std::endl;	// добавление нового элемента
+	std::cout << table.search(12) << std::endl;	// добавление элемента в цепочку
+	std::cout << table.search(22) << std::endl;	// тест - добавление элемента в цепочку
+	std::cout << table.search(32) << std::endl;	// тест - добавление элемента в цепочку
+	std::cout << table.del(32) << std::endl;	// тест - удаление элемента
+	std::cout << table.search(42) << std::endl;	// тест - поиск в цепочке после удаления элемента из цепочки
+	std::cout << table.search(13) << std::endl;     // тест - поиск отсутствующего элемента
+	std::cout << table.del(13) << std::endl;	// тест - удаление отсутствующего элемента
 	
 
 
