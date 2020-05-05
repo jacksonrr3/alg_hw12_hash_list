@@ -2,10 +2,11 @@
 
 
 template <typename T>
-struct Node {
+class Node {
 	T _item;
 	Node* _next;
 
+public:
 	Node(const T& item) {
 		_next = nullptr;
 		_item = item;
@@ -22,6 +23,10 @@ struct Node {
 		return _item;
 	}
 
+	void setItem(const T item) {
+		_item = item;
+	}
+
 	Node<T>* getNext() {
 		return _next;
 	}
@@ -35,7 +40,7 @@ struct Node {
 
 
 template <typename T>
-struct List {
+class List {
 	Node<T>* _head;
 	Node<T>* _tail;
 
@@ -109,5 +114,10 @@ public:
 		return item;
 	}
 
+	void change_value(Node<T>* node, const T& item) {
+		node->setItem(item);
+	}
+
 };
+
 
